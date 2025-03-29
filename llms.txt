@@ -1,0 +1,97 @@
+** La Liga Tracker API - Manual de Uso **
+Descripción:
+La API de La Liga Tracker permite gestionar partidos de fútbol, registrar goles, tarjetas amarillas y rojas, y actualizar el tiempo extra de un partido.
+
+** Endpoints*
+
+**********************************************
+Obtener todos los partidos
+GET /api/matches
+Respuesta esperada:
+
+json
+Copiar
+Editar
+[
+  {
+    "id": 1,
+    "home_team": "Real Madrid",
+    "away_team": "Barcelona",
+    "match_date": "2025-04-01"
+  }
+]
+
+**********************************************
+
+**********************************************
+Obtener un partido por ID
+GET /api/matches/{id}
+Ejemplo: GET /api/matches/1
+
+
+Registrar un gol
+PATCH /api/matches/{id}/goals
+Body JSON:
+
+json
+Copiar
+Editar
+{
+  "team": "Real Madrid",
+  "player": "Vinícius Jr.",
+  "minute": 35
+}
+
+**********************************************
+
+**********************************************
+
+Registrar una tarjeta amarilla
+PATCH /api/matches/{id}/yellowcards
+Body JSON:
+
+json
+Copiar
+Editar
+{
+  "team": "Barcelona",
+  "player": "Gavi",
+  "minute": 50
+}
+
+**********************************************
+
+**********************************************
+
+Registrar una tarjeta roja
+PATCH /api/matches/{id}/redcards
+Body JSON:
+
+json
+Copiar
+Editar
+{
+  "team": "Barcelona",
+  "player": "Lewandowski",
+  "minute": 75
+}
+
+**********************************************
+
+Registrar tiempo extra
+PATCH /api/matches/{id}/extratime
+Body JSON:
+
+json
+Copiar
+Editar
+{
+  "extra_time": 5
+}
+
+**********************************************
+
+** CORS **
+La API permite solicitudes desde cualquier origen gracias a la configuración de CORS.
+
+

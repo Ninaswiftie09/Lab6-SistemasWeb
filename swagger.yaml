@@ -1,0 +1,197 @@
+openapi: 3.0.0
+info:
+  title: La Liga Tracker API
+  description: API para gestionar partidos de fútbol, incluyendo goles, tarjetas y tiempo extra.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/api
+    description: Servidor local
+
+paths:
+  /matches:
+    get:
+      summary: Obtener todos los partidos
+      responses:
+        "200":
+          description: Lista de partidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Match"
+    post:
+      summary: Crear un nuevo partido
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Match"
+      responses:
+        "201":
+          description: Partido creado exitosamente
+
+  /matches/{id}:
+    get:
+      summary: Obtener un partido por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Datos del partido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Match"
+        "404":
+          description: Partido no encontrado
+    put:
+      summary: Actualizar un partido
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Match"
+      responses:
+        "200":
+          description: Partido actualizado exitosamente
+    delete:
+      summary: Eliminar un partido
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Partido eliminado exitosamente
+
+  /matches/{id}/goals:
+    patch:
+      summary: Registrar un gol en un partido
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Goal"
+      responses:
+        "204":
+          description: Gol registrado exitosamente
+
+  /matches/{id}/yellowcards:
+    patch:
+      summary: Registrar una tarjeta amarilla
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Card"
+      responses:
+        "204":
+          description: Tarjeta amarilla registrada exitosamente
+
+  /matches/{id}/redcards:
+    patch:
+      summary: Registrar una tarjeta roja
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Card"
+      responses:
+        "204":
+          description: Tarjeta roja registrada exitosamente
+
+  /matches/{id}/extratime:
+    patch:
+      summary: Registrar tiempo extra en un partido
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExtraTime"
+      responses:
+        "204":
+          description: Tiempo extra registrado exitosamente
+
+components:
+  schemas:
+    Match:
+      type: object
+      properties:
+        id:
+          type: integer
+        home_team:
+          type: string
+        away_team:
+          type: string
+        match_date:
+          type: string
+          format: date
+
+    Goal:
+      type: object
+      properties:
+        team:
+          type: string
+        player:
+          type: string
+        minute:
+          type: integer
+
+    Card:
+      type: object
+      properties:
+        team:
+          type: string
+        player:
+          type: string
+        minute:
+          type: integer
+
+    ExtraTime:
+      type: object
+      properties:
+        extra_time:
+          type: integer

@@ -14,5 +14,6 @@
 - **PostgreSQL**
 - **Docker** 
 
+ Frontend corriendo en el 8080: [captura.png]
 
 

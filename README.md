@@ -14,6 +14,7 @@
 - **PostgreSQL**
 - **Docker** 
 
- Frontend corriendo en el 8080: [captura.png]
+ Frontend corriendo en el 8080:
+![Captura de pantalla](captura.png)
 
 
